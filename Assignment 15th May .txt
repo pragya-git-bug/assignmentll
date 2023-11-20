@@ -1,0 +1,305 @@
+Assignment 15th May 
+
+Answer1 
+package linkedListClass;
+
+/*Given a linked list and a key ‘X‘ in, the task is to check if X is present 
+ * in the linked list or not.*/
+
+public class Q1LinkedList {
+	Node head;
+
+	// function to check if key is present or not
+	public boolean isPresent(int key) {
+		Node current = head;
+		// traverse the list
+		while (current != null) {
+			if (current.data == key) {
+				return true;
+			}
+			current = current.next;
+		}
+		return false;
+	}
+
+	public static void main(String[] args) {
+
+		Q1LinkedList ll = new Q1LinkedList();
+		ll.head = new Node(1);
+		Node second = new Node(2);
+		Node third = new Node(3);
+		Node fourth = new Node(4);
+
+		ll.head.next = second;
+		second.next = third;
+		third.next = fourth;
+		
+		int key=3;
+		System.out.println(ll.isPresent(key));
+	}
+}
+
+Answer2
+package linkedListClass;
+
+/*Insert a node at the given position in a linked list. We are given a 
+ * pointer to a node, and the new node is inserted after the given node.*/
+class Q2LinkedList {
+	Node head;
+
+	// Function to insert a node after a given node
+	void insertAfter(Node prevNode, int newData) {
+		if (prevNode == null) {
+			System.out.println("Previous node cannot be null.");
+			return;
+		}
+
+		Node newNode = new Node(newData);
+		newNode.next = prevNode.next;
+		prevNode.next = newNode;
+	}
+
+	// Function to display the linked list
+	void displayList() {
+		Node current = head;
+		while (current != null) {
+			System.out.print(current.data + " ");
+			current = current.next;
+		}
+		System.out.println();
+	}
+
+	// Test the program
+	public static void main(String[] args) {
+		Q2LinkedList linkedList = new Q2LinkedList();
+
+		// Create the linked list
+		linkedList.head = new Node(1);
+		Node second = new Node(2);
+		Node third = new Node(4);
+		Node fourth = new Node(5);
+
+		linkedList.head.next = second;
+		second.next = third;
+		third.next = fourth;
+
+		// Insert a node after the given node (second node in this case)
+		Node givenNode = second;
+		int newData = 3;
+		linkedList.insertAfter(givenNode, newData);
+
+		// Display the updated linked list
+		linkedList.displayList();
+	}
+}
+
+Answer3
+package linkedListClass;
+
+/*Given the head of a sorted linked list, delete all duplicates such that 
+each element appears only once. Return the linked list sorted as well.*/
+class Q3LinkedList {
+	Node head;
+
+	// Function to delete duplicate nodes from a sorted linked list
+	Node deleteDuplicates(Node head) {
+		Node current = head;
+
+		while (current != null && current.next != null) {
+			if (current.data == current.next.data) {
+				current.next = current.next.next;
+			} else {
+				current = current.next;
+			}
+		}
+		return head;
+	}
+
+	// Function to display the linked list
+	void displayList(Node head) {
+		Node current = head;
+		while (current != null) {
+			System.out.print(current.data + " ");
+			current = current.next;
+		}
+		System.out.println();
+	}
+
+	// Test the program
+	public static void main(String[] args) {
+		Q3LinkedList linkedList = new Q3LinkedList();
+
+		// Create the sorted linked list
+		linkedList.head = new Node(1);
+		Node second = new Node(1);
+		Node third = new Node(2);
+		Node fourth = new Node(3);
+		Node fifth = new Node(3);
+
+		linkedList.head.next = second;
+		second.next = third;
+		third.next = fourth;
+		fourth.next = fifth;
+
+		// Delete duplicate nodes and display the sorted linked list
+		Node newHead = linkedList.deleteDuplicates(linkedList.head);
+		linkedList.displayList(newHead);
+	}
+}
+
+Answer4
+package linkedListClass;
+
+/*Given two numbers represented by two lists, write a function that returns 
+the sum list. The sum list is a list representation of the addition of two 
+input numbers.*/
+class Q4LinkedList {
+    Node head;
+
+    // Function to check if the linked list is a palindrome
+    boolean isPalindrome() {
+        if (head == null) {
+            return true; // An empty list is considered a palindrome
+        }
+
+        Node slow = head;
+        Node fast = head;
+
+        // Find the middle node of the linked list
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Reverse the second half of the linked list
+        //We send slow.next so that only post middle part is reversed
+        Node secondHalf = reverse(slow.next);
+        Node firstHalf = head;
+
+        // Compare the reversed second half with the first half
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data) {
+                return false;
+            }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        return true;
+    }
+
+    // Function to reverse a linked list
+    Node reverse(Node head) {
+        Node prev = null;
+        Node current = head;
+
+        while (current != null) {
+            Node next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        return prev;
+    }
+
+    // Test the program
+    public static void main(String[] args) {
+    	Q4LinkedList linkedList = new Q4LinkedList();
+
+        // Create the linked list
+        linkedList.head = new Node(1);
+        Node second = new Node(2);
+        Node third = new Node(3);
+        Node fourth = new Node(2);
+        Node fifth = new Node(1);
+
+        linkedList.head.next = second;
+        second.next = third;
+        third.next = fourth;
+        fourth.next = fifth;
+
+        // Check if the linked list is a palindrome
+        boolean isPalindrome = linkedList.isPalindrome();
+
+        if (isPalindrome) {
+            System.out.println("The linked list is a palindrome.");
+        } else {
+            System.out.println("The linked list is not a palindrome.");
+        }
+    }
+}
+
+Answer5
+package linkedListClass;
+
+/*
+ * Given two numbers represented by two lists, write a function that returns the
+ * sum list. The sum list is a list representation of the addition of two input
+ * numbers.
+ */
+class Q5LinkedList {
+	Node head;
+
+	// Function to add two numbers represented by linked lists
+	Node addTwoNumbers(Node l1, Node l2) {
+		Node dummy = new Node(0); // Dummy node to track the head of the sum list
+		Node current = dummy;
+		int carry = 0;
+
+		while (l1 != null || l2 != null) {
+			int sum = carry;
+			//we add digit by digit
+			if (l1 != null) {
+				sum += l1.data;
+				l1 = l1.next;
+			}
+
+			if (l2 != null) {
+				sum += l2.data;
+				l2 = l2.next;
+			}
+
+			carry = sum / 10;
+			sum %= 10;
+
+			current.next = new Node(sum); // Create a new node with the sum value
+			current = current.next; // Move the current pointer to the newly created node
+		}
+
+		if (carry > 0) {
+			current.next = new Node(carry); // If there is a remaining carry, add it as a new node
+		}
+
+		return dummy.next; // Return the head of the sum list
+	}
+
+	// Function to display the linked list
+	void displayList(Node head) {
+		Node current = head;
+		while (current != null) {
+			System.out.print(current.data + " ");
+			current = current.next;
+		}
+		System.out.println();
+	}
+
+	// Test the program
+	public static void main(String[] args) {
+		Q5LinkedList linkedList = new Q5LinkedList();
+
+		// Create the first linked list
+		Node l1 = new Node(2);
+		l1.next = new Node(4);
+		l1.next.next = new Node(3);
+
+		// Create the second linked list
+		Node l2 = new Node(5);
+		l2.next = new Node(6);
+		l2.next.next = new Node(4);
+
+		// Add the two numbers and display the sum list
+		Node sumList = linkedList.addTwoNumbers(l1, l2);
+		linkedList.displayList(sumList);
+	}
+}
